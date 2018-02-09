@@ -1,0 +1,33 @@
+<!-- this is a comment. in the next tag, the xmlns tags define namespaces, the name after of the equality signs being the name of the namespace. In the code below, we can use this name instead of the full path -->
+<mvc:View controllerName="content.ViolentCrimeDetails"
+	xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout">
+
+    <l:VerticalLayout >
+        <l:content>
+<!-- view content goes here -->
+	<ComboBox
+	        id="ComboBox1"
+			selectionChange="onChange"
+			selectionFinish="handleSelectionFinish"
+			width="500px"
+			items="{
+				path: '/CrimeMaster'
+				}">
+			<core:Item key="{TYPE_CRIME}" text="{CRIME_NAME}" />
+		</ComboBox>
+		<!---	<ComboBox
+	        id="ComboBox2"
+			selectionChange="onChange"
+			width="500px"
+			items="{
+				path: '/State_Master',
+				sorter: { path: 'CRIME_ABBR' }
+			}">
+			<core:Item key="{CRIME_ABBR}" text="{CRIME_NAME}" />
+		</ComboBox> -->
+        </l:content>
+</l:VerticalLayout >
+</mvc:View>

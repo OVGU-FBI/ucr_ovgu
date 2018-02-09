@@ -1,0 +1,47 @@
+<!-- this is a comment. in the next tag, the xmlns tags define namespaces, the name after of the equality signs being the name of the namespace. In the code below, we can use this name instead of the full path -->
+<mvc:View controllerName="content.PropertyCrimeDetails"
+    xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:m="sap.m"
+	height="100%">
+<!-- view content goes here -->
+<l:ResponsiveSplitter defaultPane="default">
+		<l:PaneContainer>
+			<l:SplitPane requiredParentWidth="400" id="default">
+				<m:Panel headerText="Minimum parent width 400" height="100%">
+					<MultiComboBox
+	        id="ComboBox4"
+			selectionChange="handleSelectionChange"
+			selectionFinish="handleSelectionFinish"
+			width="500px"
+			items="{
+				path: '/CrimeMaster',
+				sorter: { path: 'CRIME_ABBR' }
+			}">
+			<core:Item key="{CRIME_ABBR}" text="{CRIME_NAME}" />
+		</MultiComboBox>
+				</m:Panel>
+			</l:SplitPane>
+			<l:PaneContainer orientation="Vertical">
+				<l:SplitPane  requiredParentWidth="600">
+					<m:Panel headerText="Minimum parent width 600">
+						<m:Select forceSelection="false" selectedKey="1239102" 
+							items="{
+								path: '/ProductCollection',
+								sorter: { path: 'Name' }
+							}">
+							<core:Item key="{ProductId}" text="{Name}" />
+						</m:Select>
+					</m:Panel>
+				</l:SplitPane>
+				<l:SplitPane  requiredParentWidth="800">
+					<m:Page title="Minimum parent width 800">
+						<m:footer>
+						
+						</m:footer>
+					</m:Page>
+				</l:SplitPane>
+			</l:PaneContainer>
+		</l:PaneContainer>
+	</l:ResponsiveSplitter></mvc:View>

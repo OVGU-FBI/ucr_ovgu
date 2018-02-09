@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flowgraph:ContainerNode xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowgraph="http://www.sap.com/ndb/flowgraph/1.0" xmi:id="96ac2eb62e99d45ee85a66d591b6226a" name="SalesFlow" runtimeBehavior="BATCH_TASK" targetSchema="GBI_006">
+  <annotations xmi:id="a3b6562f0bef0f0e5ec7a9f139d2ecf3" key="sap.afm.layout">
+    <annotations xmi:id="778c0d45c263048cb85dad51744724db" key="x" value="10">
+    </annotations>
+    <annotations xmi:id="2c33ce5d9859933ecc4fba400fc85f99" key="y" value="10">
+    </annotations>
+    <annotations xmi:id="8d78ed27eb89c35e3326bf91b7095e47" key="width" value="100">
+    </annotations>
+    <annotations xmi:id="af388d79179ecc520268846c7fecd57e" key="height" value="84">
+    </annotations>
+  </annotations>
+  <annotations xmi:id="f0706390bd9954c466d294b983746f65" key="sap.afm.palette">
+    <annotations xmi:id="7d83cc62dbd5be20ed00dedcae5fcf2f" key="additions" value="">
+    </annotations>
+  </annotations>
+  <annotations xmi:id="1bea33d24f1c8946d50e5a28e2dfd46b" key="sap.afm.nodeType" value="ContainerNode">
+  </annotations>
+  <annotations xmi:id="9205f82957a25cda9a122877a3beac67" key="sap.afm.nodeInputs">
+    <annotations/>
+  </annotations>
+  <annotations xmi:id="9dd0a323ad925550f1afad02621cb841" key="sap.afm.nodeOutputs">
+    <annotations/>
+  </annotations>
+  <nodes xsi:type="flowgraph:DataNode" xmi:id="5fc6ebdcc59706599288fa2c77eba5d6" name="VT_Salesdata_006_csv" type="VIRTUAL_TABLE" authoringSchemaName="GBI_006" catalogObjectName="VT_Salesdata_006.csv" dataLayout="COLUMN" truncateTable="false">
+    <annotations xmi:id="aa0d58dc8d118ce768551c28647d6689" key="sap.afm.description" value="">
+    </annotations>
+    <annotations xmi:id="180da3f4684b741fc62d38de72b4e906" key="sap.afm.displayName" value="Data Source">
+    </annotations>
+    <annotations xmi:id="59bf39fccc4ae6ac02a87acab92d5baa" key="sap.afm.layout">
+      <annotations xmi:id="81c79d08a0a47c2753b95bc47a1a6217" key="x" value="266">
+      </annotations>
+      <annotations xmi:id="d28740e1291a3903ed56f5c60ebfe8bb" key="y" value="134">
+      </annotations>
+      <annotations xmi:id="74cc1d7da4a8a4a3edff867f7f5d7c99" key="width" value="100">
+      </annotations>
+      <annotations xmi:id="f69f06d298f50636d06778b0c86f4786" key="height" value="84">
+      </annotations>
+    </annotations>
+    <annotations xmi:id="c6814e240d84ba7c9f526743428688d1" key="sap.afm.nodeType" value="DataNode">
+    </annotations>
+    <annotations xmi:id="06070098d8f27e0dc78c8fb755489c72" key="sap.afm.nodeInputs">
+    </annotations>
+    <annotations xmi:id="ff9e88ab03d736609bb988c71a17c17c" key="sap.afm.nodeOutputs">
+      <annotations xmi:id="8777f5775e178bcfa8290037c2635b3c" key="VT_Salesdata_006_csv_Output" value="gbi_student_006__SALES_006_Input">
+      </annotations>
+    </annotations>
+    <outputs name="VT_Salesdata_006_csv_Output" kind="TABLE" xmi:id="a8834ee93c24274ee5c3a19d02fa23eb">
+      <attributes xmi:id="dea9b8359a93b749d02536a5bad67e79" name="PATH" type="NVARCHAR" length="1024" scale="0" nullable="false">
+        <annotations xmi:id="0d541d0691f1d967a4292551414b87f5" key="sap.im.primaryKey" value="true">
+        </annotations>
+      </attributes>
+      <attributes xmi:id="ba7e1fcdab7c2863301b18f1ac5c4c75" name="NAME" type="NVARCHAR" length="1024" scale="0" nullable="false">
+        <annotations xmi:id="d46c7bb567eec5f103e739f8e9408635" key="sap.im.primaryKey" value="true">
+        </annotations>
+      </attributes>
+      <attributes xmi:id="7c045c399136f766ff3ad8f5b0a9d4a9" name="ROWNUMBER" type="BIGINT" length="0" scale="0" nullable="false">
+        <annotations xmi:id="a0ee47bb6dcbb7434a65a89ab9b473e7" key="sap.im.primaryKey" value="true">
+        </annotations>
+      </attributes>
+      <attributes xmi:id="15a05fdb15ba972d5bdd1f62bdf4dcff" name="ERROR" type="NVARCHAR" length="1024" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="084ce0992f59e21de928d0283b191fc6" name="PARTITION" type="INTEGER" length="0" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="c9c9a7cea9897cc1c5470e65d6746daa" name="Year" type="INTEGER" length="0" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="d4081da6d49b4e9d0435044d40965f9f" name="Month" type="INTEGER" length="0" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="708fc2ac1d3203b15901d833c49ab3b3" name="Day" type="INTEGER" length="0" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="883b51b6f35b09f245a70a0b5ea344c8" name="CustomerNumber" type="NVARCHAR" length="10" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="c15ea12a536d9a51e5ce8ec6c65010b1" name="OrderNumber" type="NVARCHAR" length="10" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="0828b3ee96265f2bb63f1436a2f2b7aa" name="OrderItem" type="NVARCHAR" length="3" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="37ceec02483c932b31602f16ed6ca93d" name="Product" type="NVARCHAR" length="8" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="5af7a43d01b545690d14b1c30546cb4f" name="SalesQuantity" type="INTEGER" length="0" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="20b6baf84bb6e2322e9b7d248d5625ae" name="UnitOfMeasure" type="NVARCHAR" length="3" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="ed8367d2b7d1f1b51f05eb2deeb82216" name="Revenue" type="DECIMAL" length="17" scale="2" nullable="true">
+      </attributes>
+      <attributes xmi:id="becf46f235eaebe8316e97b55690d4b5" name="Currency" type="NVARCHAR" length="3" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="9879ee7cc25cfa8ebb3bf20e791981b1" name="Discount" type="DECIMAL" length="17" scale="2" nullable="true">
+      </attributes>
+    </outputs>
+  </nodes>
+  <nodes xsi:type="flowgraph:DataNode" xmi:id="ffe700a45ee74ee096df5baa8834a92c" name="gbi_student_006__SALES_006" type="DATABASE_TABLE" authoringSchemaName="GBI_006" catalogObjectName="gbi-student-006::SALES_006" dataLayout="COLUMN" truncateTable="false">
+    <annotations xmi:id="47fb2549500102f10c6dd9144e7cb019" key="sap.afm.layout">
+      <annotations xmi:id="f0e95a183edd7c39d834825f8544cc5e" key="x" value="696">
+      </annotations>
+      <annotations xmi:id="d1793012c1bafe24a07490d15782dcae" key="y" value="154">
+      </annotations>
+      <annotations xmi:id="df1571383dad0e774b7f47403e635b5d" key="width" value="100">
+      </annotations>
+      <annotations xmi:id="dfc37ae9725850bf5e89966a3f848706" key="height" value="84">
+      </annotations>
+    </annotations>
+    <annotations xmi:id="d044d0dd6956235ad5f1c511ecff7de4" key="sap.afm.nodeType" value="DataNode">
+    </annotations>
+    <annotations xmi:id="41b020ac3f4e5a328c9e6048591f0a5f" key="sap.afm.nodeInputs">
+      <annotations xmi:id="bec3205692be8993d008910d427081c0" key="gbi_student_006__SALES_006_Input" value="VT_Salesdata_006_csv_Output">
+      </annotations>
+    </annotations>
+    <annotations xmi:id="0aeea0f93383e92870fbe1f4c11d24f3" key="sap.afm.nodeOutputs">
+    </annotations>
+    <annotations xmi:id="7f2a5893b2870d91bd3bd4c228f83bcb" key="sap.im.historyTable" value="">
+    </annotations>
+    <inputs name="gbi_student_006__SALES_006_Input" kind="TABLE" xmi:id="99d38944ad5c828737d46ab68653a9f7">
+      <attributes xmi:id="d2e5de24d48c0245365c6ceb6626aefe" name="YEAR" type="INTEGER" length="0" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="b3dd65a304f406fedef0e013a8f3cc38" name="MONTH" type="INTEGER" length="0" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="ecb96dd3c2c3aa315be44bd322dc8051" name="DAY" type="INTEGER" length="0" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="c1cf1c1b631131f1306f58556aa0581e" name="CUSTOMER_NUMBER" type="NVARCHAR" length="10" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="426cc36537de6614bcfb04eaa174bd48" name="ORDER_NUMBER" type="NVARCHAR" length="10" scale="0" nullable="false">
+        <annotations xmi:id="952367e9dec877f26297fcae2b4bbe7d" key="sap.im.primaryKey" value="true">
+        </annotations>
+      </attributes>
+      <attributes xmi:id="38f95edbe89bd9dcdf7680e027e0da27" name="ORDER_ITEM" type="NVARCHAR" length="3" scale="0" nullable="false">
+        <annotations xmi:id="231369cd803bd549cd7e30ae87254e8b" key="sap.im.primaryKey" value="true">
+        </annotations>
+      </attributes>
+      <attributes xmi:id="590eec6879613b33d47de1cfd9099cea" name="PRODUCT" type="NVARCHAR" length="8" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="67ad47f72f763853e2f487288a20eb21" name="SALES_QUANTITY" type="INTEGER" length="0" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="6700b65222d23bbee08d2f23bc9c7e37" name="UNIT_OF_MEASURE" type="NVARCHAR" length="3" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="54f319d5761ed795025bca5f42897850" name="REVENUE" type="DECIMAL" length="17" scale="2" nullable="true">
+      </attributes>
+      <attributes xmi:id="71514650fec87e2eb9447596c9ef4a7d" name="CURRENCY" type="NVARCHAR" length="3" scale="0" nullable="true">
+      </attributes>
+      <attributes xmi:id="f1f31e6e4b5ab792607e5ad2f3d85540" name="DISCOUNT" type="DECIMAL" length="17" scale="2" nullable="true">
+      </attributes>
+    </inputs>
+  </nodes>
+  <tableMappings xmi:id="0a22af836575090e3a4b0b3cad0a96a5" source="a8834ee93c24274ee5c3a19d02fa23eb" target="99d38944ad5c828737d46ab68653a9f7">
+    <attributeMappings source="c9c9a7cea9897cc1c5470e65d6746daa" target="d2e5de24d48c0245365c6ceb6626aefe" xmi:id="c42782558ed294ebf3a7f04a08e47367">
+    </attributeMappings>
+    <attributeMappings source="d4081da6d49b4e9d0435044d40965f9f" target="b3dd65a304f406fedef0e013a8f3cc38" xmi:id="b52c4e0ec0645b350c22d3083e4daa55">
+    </attributeMappings>
+    <attributeMappings source="708fc2ac1d3203b15901d833c49ab3b3" target="ecb96dd3c2c3aa315be44bd322dc8051" xmi:id="e633ad537fff4e6de9b4e5bcdd69f803">
+    </attributeMappings>
+    <attributeMappings source="883b51b6f35b09f245a70a0b5ea344c8" target="c1cf1c1b631131f1306f58556aa0581e" xmi:id="967614c35393c892383db87099a137e7">
+    </attributeMappings>
+    <attributeMappings source="c15ea12a536d9a51e5ce8ec6c65010b1" target="426cc36537de6614bcfb04eaa174bd48" xmi:id="ade4daeb758a15c534c8099c924600a5">
+    </attributeMappings>
+    <attributeMappings source="0828b3ee96265f2bb63f1436a2f2b7aa" target="38f95edbe89bd9dcdf7680e027e0da27" xmi:id="3d171897df777dc61e655338b317f3ea">
+    </attributeMappings>
+    <attributeMappings source="37ceec02483c932b31602f16ed6ca93d" target="590eec6879613b33d47de1cfd9099cea" xmi:id="f7d95095a0d6d3a26c4e160ab3b47705">
+    </attributeMappings>
+    <attributeMappings source="5af7a43d01b545690d14b1c30546cb4f" target="67ad47f72f763853e2f487288a20eb21" xmi:id="ba1815183c85252abe92d4eee261d520">
+    </attributeMappings>
+    <attributeMappings source="20b6baf84bb6e2322e9b7d248d5625ae" target="6700b65222d23bbee08d2f23bc9c7e37" xmi:id="f511660f3cc2e5e951b960eaafd3e0b9">
+    </attributeMappings>
+    <attributeMappings source="ed8367d2b7d1f1b51f05eb2deeb82216" target="54f319d5761ed795025bca5f42897850" xmi:id="591ad8bf89c7dedc6b653d3050fd3aa8">
+    </attributeMappings>
+    <attributeMappings source="becf46f235eaebe8316e97b55690d4b5" target="71514650fec87e2eb9447596c9ef4a7d" xmi:id="e72f26537a80d5dae0170dd62027e48c">
+    </attributeMappings>
+    <attributeMappings source="9879ee7cc25cfa8ebb3bf20e791981b1" target="f1f31e6e4b5ab792607e5ad2f3d85540" xmi:id="87f94c3f40bf11f634b1b8f6b1898580">
+    </attributeMappings>
+  </tableMappings>
+</flowgraph:ContainerNode>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="PRODUCT_DIM_CV_006" applyPrivilegeType="ANALYTIC_PRIVILEGE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="2.3" defaultClient="$$client$$" visibility="internal" outputViewType="Projection" calculationScenarioType="TREE_BASED" enforceSqlExecution="false">
+<descriptions defaultDescription="Products 006"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="gbi-student-006::PRODUCT_ATTR_006" type="DATA_BASE_TABLE">
+    <viewAttributes allViewAttributes="true"/>
+    <columnObject schemaName="GBI_006" columnObjectName="gbi-student-006::PRODUCT_ATTR_006"/>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<logicalModel id="gbi-student-006::PRODUCT_ATTR_006">
+  <attributes>
+    <attribute id="COLOR" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COLOR"/>
+      <keyMapping schemaName="GBI_006" columnObjectName="gbi-student-006::PRODUCT_ATTR_006" columnName="COLOR"/>
+    </attribute>
+    <attribute id="DIVISION" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DIVISION"/>
+      <keyMapping schemaName="GBI_006" columnObjectName="gbi-student-006::PRODUCT_ATTR_006" columnName="DIVISION"/>
+    </attribute>
+    <attribute id="INTERNAL_PRICE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INTERNAL_PRICE"/>
+      <keyMapping schemaName="GBI_006" columnObjectName="gbi-student-006::PRODUCT_ATTR_006" columnName="INTERNAL_PRICE"/>
+    </attribute>
+    <attribute id="PRICE" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRICE"/>
+      <keyMapping schemaName="GBI_006" columnObjectName="gbi-student-006::PRODUCT_ATTR_006" columnName="PRICE"/>
+    </attribute>
+    <attribute id="PRODUCT" key="true" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT"/>
+      <keyMapping schemaName="GBI_006" columnObjectName="gbi-student-006::PRODUCT_ATTR_006" columnName="PRODUCT"/>
+    </attribute>
+    <attribute id="PRODUCT_CATEGORY" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_CATEGORY"/>
+      <keyMapping schemaName="GBI_006" columnObjectName="gbi-student-006::PRODUCT_ATTR_006" columnName="PRODUCT_CATEGORY"/>
+    </attribute>
+    <attribute id="PRODUCT_GROUP" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_GROUP"/>
+      <keyMapping schemaName="GBI_006" columnObjectName="gbi-student-006::PRODUCT_ATTR_006" columnName="PRODUCT_GROUP"/>
+    </attribute>
+    <attribute id="PRODUCT_NAME" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_NAME"/>
+      <keyMapping schemaName="GBI_006" columnObjectName="gbi-student-006::PRODUCT_ATTR_006" columnName="PRODUCT_NAME"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

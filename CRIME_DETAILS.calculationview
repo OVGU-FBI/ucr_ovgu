@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CRIME_DETAILS" applyPrivilegeType="ANALYTIC_PRIVILEGE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="2.3" defaultClient="$$client$$" visibility="internal" outputViewType="Projection" calculationScenarioType="TREE_BASED" enforceSqlExecution="false">
+<descriptions defaultDescription="CRIME_DE"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="PROPERTY_CRIME_MASTER" type="DATA_BASE_TABLE">
+    <viewAttributes allViewAttributes="true"/>
+    <columnObject schemaName="GBI_006" columnObjectName="PROPERTY_CRIME_MASTER"/>
+  </DataSource>
+  <DataSource id="VIOLENT_CRIME_MASTER" type="DATA_BASE_TABLE">
+    <viewAttributes allViewAttributes="true"/>
+    <columnObject schemaName="GBI_006" columnObjectName="VIOLENT_CRIME_MASTER"/>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <viewAttributes>
+      <viewAttribute id="TYPE_CRIME_PROPERTY"/>
+      <viewAttribute id="PROPERTY_CRM_TTL"/>
+      <viewAttribute id="PROPERTY_CRM_TTL_RATE"/>
+      <viewAttribute id="STATE_ABBR"/>
+      <viewAttribute id="POPULATION"/>
+      <viewAttribute id="YEAR"/>
+      <viewAttribute id="_VIOLENT_CRM_TTL_"/>
+      <viewAttribute id="TYPE_CRIME"/>
+      <viewAttribute id="VIOLENT_CRM_TTL_RATE"/>
+      <viewAttribute id="YEAR_VIOLENT"/>
+      <viewAttribute id="STATE_ABBR_VIOLENT"/>
+      <viewAttribute id="POPULATION_VIOLENT"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="#PROPERTY_CRIME_MASTER" emptyUnionBehavior="NO_ROW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CRIME_PROPERTY" source="TYPE_CRIME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROPERTY_CRM_TTL" source="PROPERTY_CRM_TTL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROPERTY_CRM_TTL_RATE" source="PROPERTY_CRM_TTL_RATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STATE_ABBR" source="STATE_ABBR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="POPULATION" source="POPULATION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="_VIOLENT_CRM_TTL_" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TYPE_CRIME" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="VIOLENT_CRM_TTL_RATE" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR_VIOLENT" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="STATE_ABBR_VIOLENT" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POPULATION_VIOLENT" null="true" value=""/>
+    </input>
+    <input node="#VIOLENT_CRIME_MASTER" emptyUnionBehavior="NO_ROW">
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TYPE_CRIME_PROPERTY" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PROPERTY_CRM_TTL" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PROPERTY_CRM_TTL_RATE" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="STATE_ABBR" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POPULATION" null="true" value=""/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="_VIOLENT_CRM_TTL_" source=" VIOLENT_CRM_TTL "/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CRIME" source="TYPE_CRIME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VIOLENT_CRM_TTL_RATE" source="VIOLENT_CRM_TTL_RATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YEAR_VIOLENT" source="YEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STATE_ABBR_VIOLENT" source="STATE_ABBR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="POPULATION_VIOLENT" source="POPULATION"/>
+    </input>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Union_1">
+  <attributes>
+    <attribute id="TYPE_CRIME_PROPERTY" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TYPE_CRIME_PROPERTY"/>
+      <keyMapping columnObjectName="Union_1" columnName="TYPE_CRIME_PROPERTY"/>
+    </attribute>
+    <attribute id="PROPERTY_CRM_TTL" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PROPERTY_CRM_TTL"/>
+      <keyMapping columnObjectName="Union_1" columnName="PROPERTY_CRM_TTL"/>
+    </attribute>
+    <attribute id="PROPERTY_CRM_TTL_RATE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PROPERTY_CRM_TTL_RATE"/>
+      <keyMapping columnObjectName="Union_1" columnName="PROPERTY_CRM_TTL_RATE"/>
+    </attribute>
+    <attribute id="STATE_ABBR" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="STATE_ABBR"/>
+      <keyMapping columnObjectName="Union_1" columnName="STATE_ABBR"/>
+    </attribute>
+    <attribute id="POPULATION" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="POPULATION"/>
+      <keyMapping columnObjectName="Union_1" columnName="POPULATION"/>
+    </attribute>
+    <attribute id="YEAR" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="YEAR"/>
+      <keyMapping columnObjectName="Union_1" columnName="YEAR"/>
+    </attribute>
+    <attribute id="VIOLENT_CRM_TTL" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VIOLENT_CRM_TTL"/>
+      <keyMapping columnObjectName="Union_1" columnName="_VIOLENT_CRM_TTL_"/>
+    </attribute>
+    <attribute id="TYPE_CRIME" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TYPE_CRIME"/>
+      <keyMapping columnObjectName="Union_1" columnName="TYPE_CRIME"/>
+    </attribute>
+    <attribute id="VIOLENT_CRM_TTL_RATE" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VIOLENT_CRM_TTL_RATE"/>
+      <keyMapping columnObjectName="Union_1" columnName="VIOLENT_CRM_TTL_RATE"/>
+    </attribute>
+    <attribute id="YEAR_VIOLENT" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="YEAR_1"/>
+      <keyMapping columnObjectName="Union_1" columnName="YEAR_VIOLENT"/>
+    </attribute>
+    <attribute id="STATE_ABBR_VIOLENT" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="STATE_ABBR_"/>
+      <keyMapping columnObjectName="Union_1" columnName="STATE_ABBR_VIOLENT"/>
+    </attribute>
+    <attribute id="POPULATION_VIOLENT" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="POPULATION_1"/>
+      <keyMapping columnObjectName="Union_1" columnName="POPULATION_VIOLENT"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="86" y="358"/>
+      <rectangleSize height="30" width="140"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

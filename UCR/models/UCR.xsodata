@@ -1,0 +1,6 @@
+service {
+"gbi-student-006::TEST" as "CrimeDetails"
+with ("STATE_ABBR", "YEAR", "PROPERTY_CRM_TTL","_VIOLENT_CRM_TTL_")
+keys generate local "ID";
+
+}

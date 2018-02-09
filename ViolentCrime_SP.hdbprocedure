@@ -1,0 +1,11 @@
+PROCEDURE "GBI_006"."gbi-student-006::ViolentCrime_SP" ( )
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   READS SQL DATA AS
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+   select * from  GBI_006.CRIME_MASTER where TYPE_CRIME='Violent';
+END

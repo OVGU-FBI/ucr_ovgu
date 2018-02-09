@@ -1,0 +1,95 @@
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Copyright (c) 2016 SAP UCC Magdeburg.
+    All rights reserved.
+    Contact: hana@ucc.ovgu.de
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>SAP HANA Spatial - GBI Geospatial Demo App</title>
+    
+    <!--  style sheets -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <!-- OSM and OpenLayer3 -->
+    <link rel="stylesheet" href="https://openlayers.org/en/v3.13.0/css/ol.css" type="text/css">
+    <script src="https://openlayers.org/en/v3.13.0/build/ol.js"></script>
+    
+   <!-- UI5  -->
+    <script id="sap-ui-bootstrap"
+        type="text/javascript"
+        src="/sap/ui5/1/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_bluecrystal"
+        data-sap-ui-libs="sap.ui.commons"
+        data-sap-ui-language="en"></script>    
+        
+    <script>
+    //include scripts for data loading
+       jQuery.sap.includeScript("JS/selectInfo.js");
+       jQuery.sap.includeScript("JS/searchRadiusManually.js");
+       jQuery.sap.includeScript("JS/nextShopEuclid.js");
+       jQuery.sap.includeScript("JS/loadSalesOrg.js");
+       jQuery.sap.includeScript("JS/loadStudentData.js");
+       jQuery.sap.includeScript("JS/loadKMeans.js");
+       jQuery.sap.includeScript("JS/loadLocationGBI.js");
+       jQuery.sap.includeScript("JS/loadCycleRoutes.js");
+       jQuery.sap.includeScript("JS/loadLocationCustomer.js");
+       jQuery.sap.includeScript("JS/handleMenu.js");
+       jQuery.sap.includeScript("JS/init.js");
+    </script>
+</head>
+
+<body onload="init()">
+    <header> GBI Geospatial Demo App </header>
+    <nav id=menu>
+    <div id="modus">       
+        <select id="moduscombo">
+            <option value="no" selected>- none -</option>
+              <!--   <option value="showCities"> All </option> --> 
+            <!--<option value="showCityInfo"> City infos</option>-->
+            <option value="selectNearest"> Nearest city - shop</option>
+            <option value="cycleRoute"> Cycle routes</option>
+        </select>
+        <select id="moduscluster" style='display:none'>
+            <option value="no" selected>- none -</option>
+            <option value="kmeans"> K-Means </option>
+            <option value="manually"> Manually </option>
+        </select>
+        
+        <select id="kmeanscluster" style='display:none'>
+            <option value="0" selected> -none- </option>
+            <option value="1"> 1 </option>
+            <option value="3"> 3 </option>
+            <option value="5"> 5 </option>
+            <option value="15"> 15 </option>
+        </select>
+    </div>     
+    
+    <fieldset>
+      <legend> Data Layer</legend>
+      <label class="checkbox"><input type="checkbox" id="gbiCheck"/> GBI Locations </label>
+      <label class="checkbox"><input type="checkbox" id="cusCheck"/> Customer Locations </label>
+      <label class="checkbox"><input type="checkbox" id="salCheck"/> Sales Organizations </label>
+    </fieldset>
+        
+    <fieldset>
+      <legend> Curriculum Layer </legend>
+      <label class="checkbox"><input type="checkbox" id="datCheck"/> Exercise Data </label>
+    </fieldset>
+    <fieldset>
+      <legend> Cycle Layer </legend>
+      <label class="checkbox"><input type="checkbox" id="cycCheck"/> Cycle Routes </label>
+    </fieldset>
+    </nav>
+    
+    <section>  
+    <div id="map" class="map">
+         <div id="popup" class="popup"></div>
+    </div>
+     </section> 
+</body>
+</html>

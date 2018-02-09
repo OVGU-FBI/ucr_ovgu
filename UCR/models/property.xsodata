@@ -1,0 +1,3 @@
+service{
+"GBI_006"."CRIME_MASTER" as "CrimeMaster";
+}

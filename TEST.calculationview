@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="TEST" applyPrivilegeType="ANALYTIC_PRIVILEGE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="2.3" defaultClient="$$client$$" visibility="internal" outputViewType="Projection" calculationScenarioType="TREE_BASED" enforceSqlExecution="false">
+<descriptions defaultDescription="TEST"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="VIOLENT_CRIME_MASTER" type="DATA_BASE_TABLE">
+    <viewAttributes allViewAttributes="true"/>
+    <columnObject schemaName="GBI_006" columnObjectName="VIOLENT_CRIME_MASTER"/>
+  </DataSource>
+  <DataSource id="PROPERTY_CRIME_MASTER" type="DATA_BASE_TABLE">
+    <viewAttributes allViewAttributes="true"/>
+    <columnObject schemaName="GBI_006" columnObjectName="PROPERTY_CRIME_MASTER"/>
+  </DataSource>
+  <DataSource id="Join_2$$$$PROPERTY_CRIME_MASTER$$" type="DATA_BASE_TABLE">
+    <viewAttributes allViewAttributes="true"/>
+    <columnObject schemaName="GBI_006" columnObjectName="PROPERTY_CRIME_MASTER"/>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner" cardinality="C1_1">
+    <viewAttributes>
+      <viewAttribute id="_VIOLENT_CRM_TTL_"/>
+      <viewAttribute id="PROPERTY_CRM_TTL"/>
+      <viewAttribute id="JOIN$YEAR$YEAR" hidden="true"/>
+      <viewAttribute id="JOIN$STATE_ABBR$STATE_ABBR" hidden="true"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="#VIOLENT_CRIME_MASTER">
+      <mapping xsi:type="Calculation:AttributeMapping" target="_VIOLENT_CRM_TTL_" source=" VIOLENT_CRM_TTL "/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$YEAR$YEAR" source="YEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$STATE_ABBR$STATE_ABBR" source="STATE_ABBR"/>
+    </input>
+    <input node="#PROPERTY_CRIME_MASTER">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROPERTY_CRM_TTL" source="PROPERTY_CRM_TTL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$YEAR$YEAR" source="YEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$STATE_ABBR$STATE_ABBR" source="STATE_ABBR"/>
+    </input>
+    <joinAttribute name="JOIN$YEAR$YEAR"/>
+    <joinAttribute name="JOIN$STATE_ABBR$STATE_ABBR"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="inner" cardinality="C1_1">
+    <viewAttributes>
+      <viewAttribute id="_VIOLENT_CRM_TTL_"/>
+      <viewAttribute id="PROPERTY_CRM_TTL"/>
+      <viewAttribute id="POPULATION"/>
+      <viewAttribute id="STATE_ABBR"/>
+      <viewAttribute id="YEAR"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="#Join_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="_VIOLENT_CRM_TTL_" source="_VIOLENT_CRM_TTL_"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROPERTY_CRM_TTL" source="PROPERTY_CRM_TTL"/>
+    </input>
+    <input node="#Join_2$$$$PROPERTY_CRIME_MASTER$$">
+      <mapping xsi:type="Calculation:AttributeMapping" target="POPULATION" source="POPULATION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STATE_ABBR" source="STATE_ABBR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROPERTY_CRM_TTL" source="PROPERTY_CRM_TTL"/>
+    </input>
+    <joinAttribute name="PROPERTY_CRM_TTL"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_2">
+  <attributes>
+    <attribute id="_VIOLENT_CRM_TTL_" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="_VIOLENT_CRM_TTL_"/>
+      <keyMapping columnObjectName="Join_2" columnName="_VIOLENT_CRM_TTL_"/>
+    </attribute>
+    <attribute id="PROPERTY_CRM_TTL" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PROPERTY_CRM_TTL"/>
+      <keyMapping columnObjectName="Join_2" columnName="PROPERTY_CRM_TTL"/>
+    </attribute>
+    <attribute id="POPULATION" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="POPULATION"/>
+      <keyMapping columnObjectName="Join_2" columnName="POPULATION"/>
+    </attribute>
+    <attribute id="STATE_ABBR" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="STATE_ABBR"/>
+      <keyMapping columnObjectName="Join_2" columnName="STATE_ABBR"/>
+    </attribute>
+    <attribute id="YEAR" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="YEAR"/>
+      <keyMapping columnObjectName="Join_2" columnName="YEAR"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="false" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="86" y="252"/>
+      <rectangleSize height="30" width="140"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="298" y="179"/>
+      <rectangleSize height="30" width="140"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

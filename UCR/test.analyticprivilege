@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Privilege:analyticPrivilege xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="test" privilegeType="ANALYTIC_PRIVILEGE" schemaVersion="1.1">
+<descriptions defaultDescription="test"/>
+<securedModels>
+  <modelUri>/gbi-student-006/calculationviews/CRIME_DETAILS</modelUri>
+</securedModels>
+
+<validity xsi:type="AccessControl:SingleValueFilter" including="true" value="2018-02-08"/>
+<restriction>
+  <filter attributeName="STATE_ABBR" xsi:type="Privilege:AttributeFilter">
+    <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value=""/>
+  </filter>
+  <attributeName>STATE_ABBR</attributeName>
+  <originInformationModelUri>/gbi-student-006/calculationviews/CRIME_DETAILS</originInformationModelUri>
+</restriction>
+<restriction>
+  <filter attributeName="YEAR" xsi:type="Privilege:AttributeFilter"/>
+  <attributeName>YEAR</attributeName>
+  <originInformationModelUri>/gbi-student-006/calculationviews/CRIME_DETAILS</originInformationModelUri>
+</restriction>
+</Privilege:analyticPrivilege>
