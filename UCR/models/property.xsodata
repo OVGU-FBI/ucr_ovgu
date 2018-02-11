@@ -1,3 +1,4 @@
 service{
-"GBI_006"."CRIME_MASTER" as "CrimeMaster";
+"GBI_006"."PROPERTY_CRIME_MASTER" as "PropertyCrimeMaster"
+keys generate local "ID";
 }
