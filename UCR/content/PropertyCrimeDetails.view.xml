@@ -19,9 +19,16 @@
 		title="Revenue">
 
 		<dimensionSelectors>
-			<m:Select id="idoSelect1"> </m:Select> 
+			<m:Select id="idoSelect1"> </m:Select>
+    		<m:ComboBox
+	            id="ComboBox1"
+			    items="{
+				path: '/PropertyCrimeMaster'
+				}">
+			<core:Item key="{STATE_ABBR}" text="{STATE_ABBR}" />
+		</m:ComboBox>		
 		</dimensionSelectors>
-		
+		 
 		<content>
 			<ChartContainerContent
 			   	icon = "sap-icon://bubble-chart" 

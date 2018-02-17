@@ -1,32 +1,7 @@
 sap.ui.controller("content.CrimeDetails", {
 // controller logic goes here
 onInit: function() {
-// this function is called when the view is instantiated.
-// Used to modify the view before displaying
-// first, we have to define the odata model
-var dataModel = new sap.ui.model.odata.ODataModel(
-"models/UCR.xsodata"
-);
-// now we can bind the odata model to the SalesOrders
-// view, so controls within the view can use it
-this.getView().setModel(dataModel);
 
-var oVizFrame = this.byId('barchart');
-var oVizPopover = this.byId('vizPopover');
-// after that, connecting is easy
-oVizPopover.connect(oVizFrame.getVizUid());
-/*var oItemTemplate = new sap.ui.core.ListItem();
-
-var oComboBox = new sap.ui.commons.ComboBox("comboBox",{
-    items:{
-        template:oItemTemplate
-    }
-});
-oComboBox.setModel(dataModel);
-/*oItemTemplate.bindProperty("text", "device");
-oItemTemplate.bindProperty("enabled", "enabled");*/
-/*oComboBox.bindValue("{STATE_ABBR}");
-oComboBox.placeAt("__xmlview1--comboBox");*/
 },
 onExit: function() {
 // this function is called when the view is destroyed.
@@ -47,12 +22,24 @@ onBeforeRendering: function() {
 handleChange: function(oEvent) {
 // first, we have to get the new values of the two dates
 // from our date range selector
+var dataModel = new sap.ui.model.odata.ODataModel(
+"models/UCR.xsodata"
+);
+
+// now we can bind the odata model to the SalesOrders
+// view, so controls within the view can use it
+this.getView().setModel(dataModel);
+
+var oVizFrame = this.byId('barchart');
+var oVizPopover = this.byId('vizPopover');
+// after that, connecting is easy
+oVizPopover.connect(oVizFrame.getVizUid());
 var fromDate = oEvent.getSource().getDateValue();
 var toDate = oEvent.getSource().getSecondDateValue();
 // if there is no fromDate set, we'll set
 // it to the 01/01/1964
 if (!fromDate) {
-fromDate = new Date(1964,1,1);
+fromDate  = new Date(1964,1,1);
 }
 // if there is no toDate set, we'll set
 // it to the current date
@@ -69,33 +56,29 @@ var fd = this.getView().byId("flattenedData");
 // to filter, the second argument the filter operation
 // (BT stands for "in between") and the last two
 // arguments the actual filter values
-/*var monthFilter = new sap.ui.model.Filter(
-"MONTH",
-sap.ui.model.FilterOperator.BT,
-fromDate.getYear(),
-toDate.getYear()
-);*/
-/*var yearFilter = new sap.ui.model.Filter(
-"YEAR",
-sap.ui.model.FilterOperator.BT,
-fromDate.getFullYear(),
-toDate.getFullYear()
-);*/
+ var yearFilter = new sap.ui.model.Filter(
+            "YEAR", 
+            sap.ui.model.FilterOperator.BT, 
+            fromDate.getFullYear(), 
+            toDate.getFullYear()
+        );
+
 // in addition, we want to sort our data by net revenue
 // the second (boolean) value defines if the data is sorted
 // in descending order
-/*var sorter = new sap.ui.model.Sorter(
-"NET_REVENUE",
-true
-);*/
+
+var sorter = new sap.ui.model.Sorter(
+            "YEAR", 
+            true
+        );
 // then, we need to re-bind the data to the flattened
 // dataset with the new filters and the sorter
 fd.bindData(
 "/CrimeDetails",
-null
-/*monthFilter,
-*/
-
+//[monthFilter,yearFilter]
+null,
+[sorter], 
+[yearFilter]
 );
 // last, we need to update the chart
 // first, we need to get it

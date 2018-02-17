@@ -1,23 +1,41 @@
+jQuery.sap.require( "sap.ui.vbm.AnalyticMap");
+sap.ui.vbm.AnalyticMap.GeoJSONURL  =  "L0.json";
+
 sap.ui.controller("content.Overview", {
-// controller logic goes here
-onInit: function() {
+  
+  onInit : function () 
+  {
+    var oModel = new sap.ui.model.json.JSONModel("Data.json");
+      this.getView().setModel(oModel);
+   },
 
-},
-onExit: function() {
-// this function is called when the view is destroyed.
-// Used for clean-up activities
-},
-onAfterRendering: function() {
+  onRegionClick: function (e)
+  {
+    sap.m.MessageToast.show( "onRegionClick " + e.getParameter( "code" ) );
+  },
 
-},
-onBeforeRendering: function() {
-// this function is called before the view is re-rendered // (not before first rendering)
-},
+  onRegionContextMenu: function ( e )
+  {
+    sap.m.MessageToast.show( "onRegionContextMenu " + e.getParameter( "code" ) );
+  },
+  
+  onClickItem: function (evt)  {
+    alert("onClick");
+  },
 
-changeText : function(oEvent) {
-// get the button control from the event
-var myButton = oEvent.getSource();
-// change the button's text
-myButton.setText("Clicked!");
-}
+  onContextMenuItem: function ( evt )  {
+    alert("onContextMenu");
+  },
+  
+  onClickCircle: function (evt)  {
+    alert("Circle onClick");
+  },
+
+  onContextMenuCircle: function ( evt )  {
+    alert("Circle onContextMenu");
+  },
+  
+  onZoomIn : function() {
+    this.byId("vbi").zoomToRegions(["NA"]);
+  }
 });

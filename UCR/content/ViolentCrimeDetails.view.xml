@@ -1,33 +1,78 @@
-<!-- this is a comment. in the next tag, the xmlns tags define namespaces, the name after of the equality signs being the name of the namespace. In the code below, we can use this name instead of the full path -->
-<mvc:View controllerName="content.ViolentCrimeDetails"
-	xmlns:core="sap.ui.core"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m"
-    xmlns:l="sap.ui.layout">
+<core:View
+	controllerName="content.ViolentCrimeDetails"
+	xmlns="sap.suite.ui.commons"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:viz="sap.viz.ui5.controls"
+	xmlns:layout="sap.ui.layout"
+	xmlns:core="sap.ui.core">
+	<layout:Splitter width="100%" height="100%">
+	<layout:contentAreas>
+	<ChartContainer
+		id="idChartContainer"
+		showFullScreen="true"
+		showPersonalization="false"
+		autoAdjustHeight="false"
+		showLegend="true"
+		personalizationPress="attachPersonalizationPress"
+		contentChange="attachContentChange"
+		title="Revenue">
 
-    <l:VerticalLayout >
-        <l:content>
-<!-- view content goes here -->
-	<ComboBox
-	        id="ComboBox1"
-			selectionChange="onChange"
-			selectionFinish="handleSelectionFinish"
-			width="500px"
-			items="{
-				path: '/CrimeMaster'
+		<dimensionSelectors>
+    		<m:ComboBox
+	            id="ComboBox1"
+	            selectionChange="onChanges"
+			    items="{
+				path: '/StateMaster',
+				sorter: { path: 'STATE_ABBR' }
 				}">
-			<core:Item key="{TYPE_CRIME}" text="{CRIME_NAME}" />
-		</ComboBox>
-		<!---	<ComboBox
-	        id="ComboBox2"
-			selectionChange="onChange"
-			width="500px"
-			items="{
-				path: '/State_Master',
+			<core:Item key="{STATE_ABBR}" text="{STATE_NAME}" />
+		</m:ComboBox>
+		    		<m:ComboBox
+	            id="ComboBox2"
+	            selectionChange="onChanges"
+			    items="{
+				path: '/CrimeMaster',
 				sorter: { path: 'CRIME_ABBR' }
-			}">
+				}">
 			<core:Item key="{CRIME_ABBR}" text="{CRIME_NAME}" />
-		</ComboBox> -->
-        </l:content>
-</l:VerticalLayout >
-</mvc:View>
+		</m:ComboBox>
+		</dimensionSelectors>
+		<content>
+		<!--	<ChartContainerContent
+			   	icon = "sap-icon://bubble-chart" 
+				title = "Bubble Chart"> 
+				<content>
+					<viz:VizFrame id="idoVizFrame3" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"> </viz:VizFrame>
+				</content>
+			</ChartContainerContent>	-->	
+			<ChartContainerContent
+			   	icon = "sap-icon://horizontal-stacked-chart" 
+				title = "Stacked Bar Chart"> 
+				
+				<content>
+				<viz:Popover id="vizPopover"/>
+					<viz:VizFrame id="idoVizFrame5" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"> </viz:VizFrame>
+				
+				</content>
+				
+			</ChartContainerContent>
+			<ChartContainerContent
+			   	icon = "sap-icon://vertical-bar-chart" 
+				title = "Column Chart"> 
+				<content>
+					<viz:VizFrame id="idoVizFrame4" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"> </viz:VizFrame>
+				</content>
+			</ChartContainerContent>	
+			<ChartContainerContent
+			   	icon = "sap-icon://table-chart" 
+				title = "Table"> 
+				<content>
+					<m:Table id="idoTable"> </m:Table>
+				</content>
+			</ChartContainerContent>
+		</content>	
+	</ChartContainer>
+	</layout:contentAreas>
+	</layout:Splitter>	
+</core:View>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="TEST3" applyPrivilegeType="ANALYTIC_PRIVILEGE" dataCategory="CUBE" schemaVersion="2.3" defaultClient="$$client$$" visibility="reportingEnabled" outputViewType="Aggregation" calculationScenarioType="TREE_BASED" enforceSqlExecution="false">
+<descriptions defaultDescription="TEST3"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="PROPERTY_CRIME_MASTER_DUP" type="DATA_BASE_TABLE">
+    <viewAttributes allViewAttributes="true"/>
+    <columnObject schemaName="GBI_006" columnObjectName="PROPERTY_CRIME_MASTER_DUP"/>
+  </DataSource>
+  <DataSource id="VIOLENT_CRIME_MASTER_DUP" type="DATA_BASE_TABLE">
+    <viewAttributes allViewAttributes="true"/>
+    <columnObject schemaName="GBI_006" columnObjectName="VIOLENT_CRIME_MASTER_DUP"/>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner" cardinality="C1_1">
+    <viewAttributes>
+      <viewAttribute id="PROPERTY_CRM_TTL"/>
+      <viewAttribute id="STATE_ABBR"/>
+      <viewAttribute id="YEAR"/>
+      <viewAttribute id="VIOLENT_CRM_TTL"/>
+    
+      <viewAttribute id="POPULATION"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="#PROPERTY_CRIME_MASTER_DUP">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROPERTY_CRM_TTL" source="PROPERTY_CRM_TTL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STATE_ABBR" source="STATE_ABBR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+    
+      <mapping xsi:type="Calculation:AttributeMapping" target="POPULATION" source="POPULATION"/>
+    </input>
+    <input node="#VIOLENT_CRIME_MASTER_DUP">
+      <mapping xsi:type="Calculation:AttributeMapping" target="VIOLENT_CRM_TTL" source="VIOLENT_CRM_TTL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="POPULATION" source="POPULATION"/>
+    </input>
+    <joinAttribute name="YEAR"/>
+    <joinAttribute name="POPULATION"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="STATE_ABBR" key="true" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="STATE_ABBR"/>
+      <keyMapping columnObjectName="Join_1" columnName="STATE_ABBR"/>
+    </attribute>
+    <attribute id="YEAR" key="true" order="3" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="YEAR"/>
+      <keyMapping columnObjectName="Join_1" columnName="YEAR"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="PROPERTY_CRM_TTL" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="PROPERTY_CRM_TTL"/>
+      <measureMapping columnObjectName="Join_1" columnName="PROPERTY_CRM_TTL"/>
+    </measure>
+    <measure id="VIOLENT_CRM_TTL" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="VIOLENT_CRM_TTL"/>
+      <measureMapping columnObjectName="Join_1" columnName="VIOLENT_CRM_TTL"/>
+    </measure>
+  
+    <measure id="POPULATION" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="POPULATION"/>
+      <measureMapping columnObjectName="Join_1" columnName="POPULATION"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="86" y="224"/>
+      <rectangleSize height="30" width="140"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

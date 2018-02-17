@@ -1,4 +1,5 @@
 service{
-"GBI_006"."PROPERTY_CRIME_MASTER" as "PropertyCrimeMaster"
-keys generate local "ID";
+"GBI_006"."PROPERTY_CRIME_MASTER_DUP" as "PropertyCrimeMaster"
+keys generate local "ID"
+aggregates always (SUM of "PROPERTY_CRM_TTL");
 }

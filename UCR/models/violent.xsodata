@@ -1,3 +1,12 @@
 service{
-"GBI_006"."gbi-student-006::ViolentCrime_SP" as "CrimeMaster";
+"GBI_006"."VIOLENT_CRIME_MASTER_DUP" as "ViolentCrimeMaster"
+keys generate local "ID"
+aggregates always (SUM of "VIOLENT_CRM_TTL");
+
+"GBI_006"."STATE_MASTER" as "StateMaster"
+keys generate local "ID1";
+
+"GBI_006"."CRIME_MASTER" as "CrimeMaster"
+keys generate local "ID1";
+
 }
