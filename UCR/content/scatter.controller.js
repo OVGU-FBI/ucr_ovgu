@@ -1,6 +1,6 @@
 sap.ui.controller("content.scatter", {
 onInit: function() {
-            var oModel = new sap.ui.model.odata.ODataModel("models/violent.xsodata");
+            var oModel = new sap.ui.model.odata.ODataModel("models/UCR.xsodata");
 this.getView().byId("combobox11").setModel(oModel);
 
 },    
@@ -108,47 +108,7 @@ oVizFrame.setVizProperties({
   
         });
 
-      /*  oVizFrame.setVizProperties({
-            valueAxis: {
-                label: {
-                    formatString: 'u'
-                }
-            },
-            valueAxis2: {
-                label: {
-                    formatString: 'u'
-                }
-            },
-            valueAxis3: {
-                label: {
-                    formatString: 'u'
-                }
-            },
-            plotArea: {
-                dataLabel: {
-                    visible: true,
-                    hideWhenOverlap: true
-                }
-            },
-            legend: {
-                title: {
-                    visible: false
-                }
-            },
-            sizeLegend: {
-                title: {
-                    visible: true
-                }
-            },
-
-            title: {
-                visible: true,
-                text: 'Units Sold, Profit by Item Category'
-            }
-
-        });
-*/
-
+   
 
         var feedValueAxis = new sap.viz.ui5.controls.common.feeds.FeedItem({
                 'uid': "valueAxis",

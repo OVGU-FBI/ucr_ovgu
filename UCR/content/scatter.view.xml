@@ -1,11 +1,16 @@
-<mvc:View height="100%" width="100%" controllerName="content.scatter" xmlns:viz="sap.viz.ui5.controls" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
-  xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m"   xmlns:fb="sap.ui.comp.filterbar"
+<mvc:View height="100%" width="100%" controllerName="content.scatter" 
+xmlns:viz="sap.viz.ui5.controls" 
+xmlns:mvc="sap.ui.core.mvc" 
+xmlns:core="sap.ui.core"
+xmlns:html="http://www.w3.org/1999/xhtml" 
+xmlns="sap.m"   
+xmlns:fb="sap.ui.comp.filterbar"
   xmlns:l="sap.ui.layout">
 
      <l:VerticalLayout width="100%">
     <fb:FilterBar reset="onReset" search="onSearch" showRestoreOnFB="true" showClearOnFB="true" showRestoreButton="true" showClearButton="true">
       <fb:filterItems>
-        <fb:FilterItem name="A" label="YEAR">
+        <fb:FilterItem name="A" label="Year">
           <fb:control>
              <Label
       text="Select a date range"
@@ -19,7 +24,7 @@
           </fb:control>        
         </fb:FilterItem>
         
-        <fb:FilterItem name="B" label="labelB" labelTooltip="Tooltip Example" mandatory="true">
+        <fb:FilterItem name="B" label="State" labelTooltip="State" mandatory="true">
           <fb:control>
             <ComboBox
      id="combobox11"

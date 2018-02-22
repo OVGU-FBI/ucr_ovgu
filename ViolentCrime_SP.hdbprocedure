@@ -7,5 +7,5 @@ BEGIN
    /*************************************
        Write your procedure logic 
    *************************************/
-   select * from  GBI_006.CRIME_MASTER where TYPE_CRIME='Violent';
+   select * from  GBI_006.VIOLENT_CRIME_MASTER where TYPE_CRIME='Violent';
 END

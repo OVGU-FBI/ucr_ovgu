@@ -2,23 +2,12 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 
 	onInit: function() {
 
-		var oSelect1 = this.getView().byId("idoSelect1");
-		// -------- oSelect1 ----------------
-		var item0 = new sap.ui.core.Item({
-			key: "0",
-			text: "Sales by Product"
-		});
-		var item1 = new sap.ui.core.Item({
-			key: "1",
-			text: "Sales by Country"
-		});
-
-		oSelect1.addItem(item0);
-		oSelect1.addItem(item1);
+	
 			var oModel_sb = new sap.ui.model.odata.ODataModel(
 			"models/property.xsodata"
 		);
-
+		this.getView().byId("ComboBox1").setModel(oModel_sb);
+		this.getView().byId("ComboBox2").setModel(oModel_sb);
 		//--------bubble chart vizframe---------
 		var oVizFrame3 = this.getView().byId("idoVizFrame3");
 
@@ -149,365 +138,179 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 
 		//--------stacked bar chart vizframe---------
 		var oVizFrame5 = this.getView().byId("idoVizFrame5");
-	
+	    var oPopOverBar = this.getView().byId("idPopOverBar");
+
 		var oDataset_sb = new sap.viz.ui5.data.FlattenedDataset({
 			dimensions: [{
-				name: 'STATE_ABBR',
-				value: "{STATE_ABBR}"
+				name: 'STATE_NAME',
+				value: "{STATE_NAME}"
+		                    	  		 	},
+		                    	  		 	{
+				name: 'YEAR',
+				value: "{YEAR}"
 		                    	  		 	}],
 			measures: [
 				{
-					name: 'PROPERTY_CRM_TTL',
-					value: '{PROPERTY_CRM_TTL}'
+					name: 'Burglary',
+					value: '{BURG}'
 		                    	  		 		},
 				{
-					name: 'POPULATION',
-					value: '{POPULATION}'
+					name: 'Larceny-theft',
+					value: '{LARCENY_THF}'
+		                    	  		 		},
+		                    	  		 		{
+					name: 'Motor vehicle theft',
+					value: '{MTR_VEH_THF}'
 		                    	  		 		}
 		                    	  		 	],
 			data: {
-				path: "/PropertyCrimeMaster"
+				path: "/PropertyCrimeDetails"
 			}
 		});
 
 		var feedPrimaryValues_sb = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				'uid': "primaryValues",
 				'type': "Measure",
-				'values': ["PROPERTY_CRM_TTL"]
-			}),
+ 'values': ["Burglary","Larceny-theft","Motor vehicle theft"]			}
+			),
 			feedAxisLabels_sb = new sap.viz.ui5.controls.common.feeds.FeedItem({
-				'uid': "axisLabels",
+				'uid': "color",
 				'type': "Dimension",
-				'values': ["STATE_ABBR"]
+				'values': ["STATE_NAME"]
 			}),
-			feedTargetValues_sb = new sap.viz.ui5.controls.common.feeds.FeedItem({
-				'uid': "targetValues",
-				'type': "Measure",
-				'values': ["PROPERTY_CRM_TTL"]
+			feedCategoryAxis_stacked_bar  = new sap.viz.ui5.controls.common.feeds.FeedItem({
+				'uid': "categoryAxis",
+				'type': "Dimension",
+				'values': ["YEAR"]
 			});
 
 		oVizFrame5.setDataset(oDataset_sb);
 		oVizFrame5.setModel(oModel_sb);
 		oVizFrame5.addFeed(feedPrimaryValues_sb);
 		oVizFrame5.addFeed(feedAxisLabels_sb);
-		oVizFrame5.addFeed(feedTargetValues_sb);
+		oVizFrame5.addFeed(feedCategoryAxis_stacked_bar );
+        oPopOverBar.connect(oVizFrame5.getVizUid());
 		oVizFrame5.setVizType('stacked_bar');
-
-		//-------column chart vizframe-------
-		var oVizFrame4 = this.getView().byId("idoVizFrame4");
-		var oDataset4 = new sap.viz.ui5.data.FlattenedDataset({
-			'dimensions': [{
-				'name': 'Country',
-				'value': "{Country}"
-		                    				}],
-
-			'measures': [{
-				'name': 'Profit',
-				'value': '{profit}'
-		                    				}],
-			'data': {
-				'path': "/businessData"
+	
+		//-------line chart vizframe-------
+		var oVizFrameLine = this.getView().byId("idVizFrameLine");
+        var idPopOverLine = this.getView().byId("idPopOverColumn");
+        var oDataset_line = new sap.viz.ui5.data.FlattenedDataset({
+			dimensions: [{
+				name: 'STATE_NAME',
+				value: "{STATE_NAME}"
+		                    	  		 	},
+		                    	  		 	{
+				name: 'YEAR',
+				value: "{YEAR}"
+		                    	  		 	}],
+			measures: [
+				{
+					name: 'Burglary',
+					value: '{BURG}'
+		                    	  		 		},
+				{
+					name: 'Larceny-theft',
+					value: '{LARCENY_THF}'
+		                    	  		 		},
+		                    	  		 		{
+					name: 'Motor vehicle theft',
+					value: '{MTR_VEH_THF}'
+		                    	  		 		}
+		                    	  		 	],
+			data: {
+				path: "/PropertyCrimeDetails"
 			}
 		});
-		var amModel4 = new sap.ui.model.json.JSONModel({
-			'businessData': [
+
+
+    var feedValueAxisLine = new sap.viz.ui5.controls.common.feeds.FeedItem({
+        'uid': "valueAxis",
+        'type': "Measure",
+ 'values': ["Burglary","Larceny-theft","Motor vehicle theft"]
+ }),
+      feedCategoryAxisLine = new sap.viz.ui5.controls.common.feeds.FeedItem({
+        'uid': "categoryAxis",
+        'type': "Dimension",
+                'values': ["YEAR"]
+      }),
+      feedColorLine = new sap.viz.ui5.controls.common.feeds.FeedItem({
+        'uid': "color",
+        'type': "Dimension",
+                'values': ["STATE_NAME"]
+      });
+    oVizFrameLine.setDataset(oDataset_line);
+    oVizFrameLine.setModel(oModel_sb);
+    oVizFrameLine.addFeed(feedValueAxisLine);
+    oVizFrameLine.addFeed(feedCategoryAxisLine);
+    oVizFrameLine.addFeed(feedColorLine);
+    idPopOverLine.connect(oVizFrameLine.getVizUid());
+    		oVizFrameLine.setVizType('stacked_combination');
+
+		//-------column chart vizframe-------
+		
+		var oVizFrame4 = this.getView().byId("idoVizFrame4");
+        var oPopOverColumn = this.getView().byId("idPopOverColumn");
+
+	var oDataset_sb1 = new sap.viz.ui5.data.FlattenedDataset({
+			dimensions: [{
+				name: 'STATE_NAME',
+				value: "{STATE_NAME}"
+		                    	  		 	},
+		                    	  		 	{
+				name: 'YEAR',
+				value: "{YEAR}"
+		                    	  		 	}],
+			measures: [
 				{
-					'Country': "Canada",
-					'revenue': 410.87,
-					'profit': 141.25
-				},
+					name: 'Burglary',
+					value: '{BURG}'
+		                    	  		 		},
 				{
-					'Country': "China",
-					'revenue': 338.29,
-					'profit': 133.82
-				},
-				{
-					'Country': "France",
-					'revenue': 487.66,
-					'profit': 348.76
-				},
-				{
-					'Country': "Germany",
-					'revenue': 470.23,
-					'profit': 217.29
-				},
-				{
-					'Country': "India",
-					'revenue': 170.93,
-					'profit': 117.00
-				},
-				{
-					'Country': "United States",
-					'revenue': 905.08,
-					'profit': 609.16
-				},
-				{
-					'Country': "Italy",
-					'revenue': 410.87,
-					'profit': 141.25
-				},
-				{
-					'Country': "Spain",
-					'revenue': 338.29,
-					'profit': 133.82
-				},
-				{
-					'Country': "Portugal",
-					'revenue': 487.66,
-					'profit': 348.76
-				},
-				{
-					'Country': "Ireland",
-					'revenue': 470.23,
-					'profit': 217.29
-				},
-				{
-					'Country': "Scotland",
-					'revenue': 170.93,
-					'profit': 117.00
-				},
-				{
-					'Country': "Wales",
-					'revenue': 905.08,
-					'profit': 609.16
-				},
-				{
-					'Country': "England",
-					'revenue': 410.87,
-					'profit': 141.25
-				},
-				{
-					'Country': "Belgium",
-					'revenue': 338.29,
-					'profit': 133.82
-				},
-				{
-					'Country': "Andorra",
-					'revenue': 487.66,
-					'profit': 348.76
-				},
-				{
-					'Country': "Netherlands",
-					'revenue': 470.23,
-					'profit': 217.29
-				},
-				{
-					'Country': "Poland",
-					'revenue': 170.93,
-					'profit': 117.00
-				},
-				{
-					'Country': "Danemark",
-					'revenue': 905.08,
-					'profit': 609.16
-				},
-				{
-					'Country': "Sweden",
-					'revenue': 410.87,
-					'profit': 141.25
-				},
-				{
-					'Country': "Norway",
-					'revenue': 338.29,
-					'profit': 133.82
-				},
-				{
-					'Country': "Finland",
-					'revenue': 487.66,
-					'profit': 348.76
-				},
-				{
-					'Country': "Russia",
-					'revenue': 470.23,
-					'profit': 217.29
-				},
-				{
-					'Country': "Bularia",
-					'revenue': 170.93,
-					'profit': 117.00
-				},
-				{
-					'Country': "Romania",
-					'revenue': 905.08,
-					'profit': 609.16
-				},
-				{
-					'Country': "Alabania",
-					'revenue': 410.87,
-					'profit': 141.25
-				},
-				{
-					'Country': "Greece",
-					'revenue': 338.29,
-					'profit': 133.82
-				},
-				{
-					'Country': "Turkey",
-					'revenue': 487.66,
-					'profit': 348.76
-				},
-				{
-					'Country': "South Africa",
-					'revenue': 470.23,
-					'profit': 217.29
-				},
-				{
-					'Country': "Australia",
-					'revenue': 170.93,
-					'profit': 117.00
-				},
-				{
-					'Country': "New Zeland",
-					'revenue': 905.08,
-					'profit': 609.16
-				},
-				{
-					'Country': "Japan",
-					'revenue': 410.87,
-					'profit': 141.25
-				},
-				{
-					'Country': "Indonesia",
-					'revenue': 338.29,
-					'profit': 133.82
-				},
-				{
-					'Country': "Argentina",
-					'revenue': 487.66,
-					'profit': 348.76
-				},
-				{
-					'Country': "Mexico",
-					'revenue': 470.23,
-					'profit': 217.29
-				},
-				{
-					'Country': "Brazil",
-					'revenue': 170.93,
-					'profit': 117.00
-				},
-				{
-					'Country': "Chile",
-					'revenue': 905.08,
-					'profit': 609.16
-				},
-				{
-					'Country': "Peru",
-					'revenue': 410.87,
-					'profit': 141.25
-				},
-				{
-					'Country': "Colombia",
-					'revenue': 338.29,
-					'profit': 133.82
-				},
-				{
-					'Country': "Venezuela",
-					'revenue': 487.66,
-					'profit': 348.76
-				},
-				{
-					'Country': "Uruguay",
-					'revenue': 470.23,
-					'profit': 217.29
-				},
-				{
-					'Country': "Honduras",
-					'revenue': 170.93,
-					'profit': 117.00
-				},
-				{
-					'Country': "Ghana",
-					'revenue': 905.08,
-					'profit': 609.16
-				},
-				{
-					'Country': "Israel",
-					'revenue': 410.87,
-					'profit': 141.25
-				},
-				{
-					'Country': "Lybia",
-					'revenue': 338.29,
-					'profit': 133.82
-				},
-				{
-					'Country': "Algeria",
-					'revenue': 487.66,
-					'profit': 348.76
-				},
-				{
-					'Country': "Marroco",
-					'revenue': 470.23,
-					'profit': 217.29
-				},
-				{
-					'Country': "Guinea",
-					'revenue': 170.93,
-					'profit': 117.00
-				},
-				{
-					'Country': "Iran",
-					'revenue': 905.08,
-					'profit': 609.16
-				},
-				{
-					'Country': "Irak",
-					'revenue': 410.87,
-					'profit': 141.25
-				},
-				{
-					'Country': "Egypt",
-					'revenue': 338.29,
-					'profit': 133.82
-				},
-				{
-					'Country': "Kenya",
-					'revenue': 487.66,
-					'profit': 348.76
-				},
-				{
-					'Country': "Island",
-					'revenue': 470.23,
-					'profit': 217.29
-				},
-				{
-					'Country': "Cuba",
-					'revenue': 170.93,
-					'profit': 117.00
-				},
-				{
-					'Country': "Pakistan",
-					'revenue': 905.08,
-					'profit': 609.16
-				}
-		                    	  			 ]
+					name: 'Larceny-theft',
+					value: '{LARCENY_THF}'
+		                    	  		 		},
+		                    	  		 		{
+					name: 'Motor vehicle theft',
+					value: '{MTR_VEH_THF}'
+		                    	  		 		}
+		                    	  		 	],
+			data: {
+				path: "/PropertyCrimeDetails"
+			}
 		});
-		var feedPrimaryValues4 = new sap.viz.ui5.controls.common.feeds.FeedItem({
-				'uid': "primaryValues",
-				'type': "Measure",
-				'values': ["Profit"]
-			}),
-			feedAxisLabels4 = new sap.viz.ui5.controls.common.feeds.FeedItem({
-				'uid': "axisLabels",
-				'type': "Dimension",
-				'values': [new sap.viz.ui5.controls.common.feeds.AnalysisObject({
-					'uid': "Country",
-					'type': "Dimension",
-					'name': "Country"
-				})]
-			});
-		oVizFrame4.setDataset(oDataset4);
-		oVizFrame4.setModel(amModel4);
-		oVizFrame4.addFeed(feedPrimaryValues4);
-		oVizFrame4.addFeed(feedAxisLabels4);
+
+		 var feedValueAxis = new sap.viz.ui5.controls.common.feeds.FeedItem({
+                'uid': "valueAxis",
+                'type': "Measure",
+                'values': ["Burglary","Larceny-theft","Motor vehicle theft"]
+            }),
+            feedCategoryAxis = new sap.viz.ui5.controls.common.feeds.FeedItem({
+                'uid': "categoryAxis",
+                'type': "Dimension",
+                'values': ["YEAR"]
+            }),
+            feedColor = new sap.viz.ui5.controls.common.feeds.FeedItem({
+                'uid': "color",
+                'type': "Dimension",
+                'values': ["STATE_NAME"]
+            });
+
+		
+		oVizFrame4.setDataset(oDataset_sb1);
+		oVizFrame4.setModel(oModel_sb);
+		oVizFrame4.addFeed(feedValueAxis);
+		oVizFrame4.addFeed(feedCategoryAxis);
+		oVizFrame4.addFeed(feedColor);
+        oPopOverColumn.connect(oVizFrame4.getVizUid());
+
 		oVizFrame4.setVizType('column');
 
 		//-----------table example -------------------
 		var oTable = this.getView().byId("idoTable");
 		oTable.addColumn(new sap.m.Column({
 			header: new sap.m.Label({
-				text: "YEAR"
+				text: "Year"
 			})
 		}));
 		oTable.addColumn(new sap.m.Column({
@@ -517,27 +320,28 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 		}));
 		oTable.addColumn(new sap.m.Column({
 			header: new sap.m.Label({
-				text: "Property Crime Total"
+				text: "Property crime total"
 			})
 		}));
 		oTable.addColumn(new sap.m.Column({
 			header: new sap.m.Label({
-				text: "Burglary Crime"
+				text: "Burglary"
 			})
 		}));
 		oTable.addColumn(new sap.m.Column({
 			header: new sap.m.Label({
-				text: "Motor Vehicle Theft"
+				text: "Larceny-theft"
 			})
 		}));
 		oTable.addColumn(new sap.m.Column({
 			header: new sap.m.Label({
-				text: "Larceny Theft"
+				text: "Motor vehicle theft"
 			})
 		}));
+				
 		oTable.addColumn(new sap.m.Column({
 			header: new sap.m.Label({
-				text: "Property Crime Rate"
+				text: "Property crime Rate"
 			})
 		}));
 		oTable.addColumn(new sap.m.Column({
@@ -562,46 +366,89 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 					text: "{BURG}"
 				}),
 		                    						new sap.m.Label({
-					text: "{MTR_VEH_THF}"
-				}),
-		                    						new sap.m.Label({
 					text: "{LARCENY_THF}"
 				}),
 		                    						new sap.m.Label({
-					text: "{PROPERTY_CRM_TTL_RATE}"
+					text: "{MTR_VEH_THF}"
 				}),
 		                    						new sap.m.Label({
-					text: "{STATE_ABBR}"
+					text: "{STATE_NAME}"
+				}),
+		                    						new sap.m.Label({
+					text: "{PROPERTY_CRM_TTL_RATE}"
 				})
 		                    				     ]
 		});
 
-		// in addition, we want to sort our data by net revenue
-		// the second (boolean) value defines if the data is sorted
-		// in descending order
-
-		/*var sorter = new sap.ui.model.Sorter(
-            "YEAR", 
-            true
-        );*/
-		// then, we need to re-bind the data to the flattened
-		// dataset with the new filters and the sorter
-
-		oTable.bindItems("/PropertyCrimeMaster", oTableTemplate, null, null);
+		oTable.bindItems("/PropertyCrimeDetails", oTableTemplate, null, null);
 		oTable.setModel(oModel_sb);
 
 	},
 
-	/*	attachPersonalizationPress : function(oE) {
-		sap.m.MessageToast.show("Personlainzation event was fired.");
-	},
-	attachContentChange : function(evt){
-		var itemId = evt.getParameter("selectedItemId");
-		sap.m.MessageToast.show("ContentChange event was fired. Selected Item was changed to:" + itemId);
-	}*/
-	onChanges: function(oEvent) {
+	onChangeState: function(oEvent) {
 
-		var itemId = oEvent.getParameter("selectedItemId");
+		var itemId =oEvent.getParameter("selectedItem").getKey();
+		var sorter = new sap.ui.model.Sorter(
+			"YEAR",
+			true
+		);
+		var stateFilter = new sap.ui.model.Filter(
+			"STATE_NAME",
+			sap.ui.model.FilterOperator.EQ,
+			itemId
+		);
+        var yearFilter = this.byId("idoTable").getBinding("items").aFilters[0];
+			if(yearFilter){
+			this.getView().byId("idoVizFrame4").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[stateFilter, yearFilter]
+		);
+		this.getView().byId("idoVizFrame5").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[stateFilter, yearFilter]
+		);
+			this.getView().byId("idVizFrameLine").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[stateFilter, yearFilter]
+		);
+		
+            this.byId("idoTable").getBinding("items").filter([stateFilter,yearFilter]).sort(sorter);	
+			    
+			}else{
+    	this.getView().byId("idoVizFrame4").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[stateFilter]
+		);
+		this.getView().byId("idoVizFrame5").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[stateFilter]
+		);
+			this.getView().byId("idVizFrameLine").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[stateFilter]
+		);
+		
+this.byId("idoTable").getBinding("items").filter([stateFilter]).sort(sorter);	
+    
+    
+}
+	    
+	},
+		onChangeYear: function(oEvent) {
+
+		var itemId =oEvent.getParameter("selectedItem").getKey();
 		var sorter = new sap.ui.model.Sorter(
 			"YEAR",
 			true
@@ -611,14 +458,42 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 			sap.ui.model.FilterOperator.EQ,
 			itemId
 		);
-		// var oVizFrame3 = this.getView().byId("idoVizFrame3");
-		var oTable = this.getView().byId("idoTable");
-		oTable.bindData(
-			"/PropertyCrimeMaster",
+				this.getView().byId("idoVizFrame4").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[yearFilter]
+		);
+			this.getView().byId("idVizFrameLine").getDataset().bindData(
+			"/PropertyCrimeDetails",
 			null,
 			[sorter],
 			[yearFilter]
 		);
 
+		this.getView().byId("idoVizFrame5").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[yearFilter]
+		);
+
+        this.byId("idoTable").getBinding("items").filter(yearFilter).sort(sorter);	
+	},
+	
+	onPress: function() {
+	    	this.getView().byId("idoVizFrame4").getDataset().bindData(
+			"/PropertyCrimeDetails");
+			this.getView().byId("idVizFrameLine").getDataset().bindData(
+			"/PropertyCrimeDetails");
+
+		this.getView().byId("idoVizFrame5").getDataset().bindData(
+			"/PropertyCrimeDetails");
+
+ this.byId("idoTable").getBinding("items").filter("");
+ this.getView().byId("ComboBox1").setSelectedKey(null);
+        this.getView().byId("ComboBox2").setSelectedKey(null);
+        this.getView().byId("ComboBox1").setValue(null);
+        this.getView().byId("ComboBox2").setValue(null);
 	}
 });

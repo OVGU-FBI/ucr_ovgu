@@ -1,6 +1,9 @@
 service {
-"gbi-student-006::TEST3" as "CrimeDetails" key ("STATE_ABBR","YEAR")
+"gbi-student-006::TEST3" as "CrimeDetails" keys generate local "ID"
 aggregates always (SUM of "PROPERTY_CRM_TTL", SUM of "VIOLENT_CRM_TTL");
+"gbi-student-006::VIOLENT" as "CrimeDetails" keys generate local "ID"
+
+aggregates always (SUM of "VIOLENT_CRM_TTL");
 "GBI_006"."STATE_MASTER" as "StateMaster"
 keys generate local "ID1";
 }

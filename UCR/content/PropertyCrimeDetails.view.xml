@@ -18,15 +18,28 @@
 		contentChange="attachContentChange"
 		title="Revenue">
 
-		<dimensionSelectors>
-			<m:Select id="idoSelect1"> </m:Select>
+		<dimensionSelectors >
+		<m:ComboBox
+	            id="ComboBox2"
+		        selectionChange="onChangeYear"
+			    items="{
+				path: '/CrimeDetails'
+				}">
+			<core:Item key="{YEAR}" text="{YEAR}" />
+		</m:ComboBox>		
     		<m:ComboBox
 	            id="ComboBox1"
+		    	selectionChange="onChangeState"
 			    items="{
-				path: '/PropertyCrimeMaster'
+				path: '/StateMaster'
 				}">
-			<core:Item key="{STATE_ABBR}" text="{STATE_ABBR}" />
-		</m:ComboBox>		
+			<core:Item key="{STATE_NAME}" text="{STATE_NAME}" />
+		</m:ComboBox>	
+
+        <m:Button text="Reset"
+            press="onPress">
+     
+        </m:Button>
 		</dimensionSelectors>
 		 
 		<content>
@@ -34,6 +47,7 @@
 			   	icon = "sap-icon://bubble-chart" 
 				title = "Bubble Chart"> 
 				<content>
+				<viz:Popover id="idPopOverBubble"></viz:Popover>
 					<viz:VizFrame id="idoVizFrame3" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"> </viz:VizFrame>
 				</content>
 			</ChartContainerContent>		
@@ -41,25 +55,39 @@
 			   	icon = "sap-icon://horizontal-stacked-chart" 
 				title = "Stacked Bar Chart"> 
 				<content>
+				<viz:Popover id="idPopOverBar"></viz:Popover>
 					<viz:VizFrame id="idoVizFrame5" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"> </viz:VizFrame>
 				</content>
+			</ChartContainerContent>
+				<ChartContainerContent
+			   	icon = "sap-icon://line-chart" 
+				title = "Line Chart"> 
+				<content>
+			<viz:Popover id="idPopOverLine"></viz:Popover>
+       <viz:VizFrame id="idVizFrameLine" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
+       				</content>
 			</ChartContainerContent>
 			<ChartContainerContent
 			   	icon = "sap-icon://vertical-bar-chart" 
 				title = "Column Chart"> 
 				<content>
+				<viz:Popover id="idPopOverColumn"></viz:Popover>
 					<viz:VizFrame id="idoVizFrame4" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"> </viz:VizFrame>
 				</content>
 			</ChartContainerContent>	
+
+
 			<ChartContainerContent
 			   	icon = "sap-icon://table-chart" 
 				title = "Table"> 
+							     
 				<content>
 					<m:Table id="idoTable"> </m:Table>
-				</content>
+				</content>			
 			</ChartContainerContent>
 		</content>	
 	</ChartContainer>
+
 	</layout:contentAreas>
 	</layout:Splitter>	
 </core:View>

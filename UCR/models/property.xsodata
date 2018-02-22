@@ -1,5 +1,14 @@
-service{
-"GBI_006"."PROPERTY_CRIME_MASTER_DUP" as "PropertyCrimeMaster"
-keys generate local "ID"
+
+service {
+
+"gbi-student-006::PROPERTY" as "PropertyCrimeDetails" keys generate local "ID"
+
 aggregates always (SUM of "PROPERTY_CRM_TTL");
+
+
+"GBI_006"."STATE_MASTER" as "StateMaster"
+keys generate local "ID1";
+
+"gbi-student-006::TEST3" as "CrimeDetails" keys generate local "ID"
+aggregates always (SUM of "PROPERTY_CRM_TTL", SUM of "VIOLENT_CRM_TTL");
 }
