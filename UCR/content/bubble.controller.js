@@ -1,3 +1,5 @@
+sap.ui.getCore().loadLibrary("openui5.googlemaps", "/openui5/googlemaps/");
+
 sap.ui.define([
         'jquery.sap.global',
         'sap/ui/core/mvc/Controller',

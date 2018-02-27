@@ -1,11 +1,10 @@
-jQuery.sap.require( "sap.ui.vbm.AnalyticMap");
-sap.ui.vbm.AnalyticMap.GeoJSONURL  =  "L0.json";
+sap.ui.getCore().loadLibrary("openui5.googlemaps", "openui5/googlemaps/");
 
 sap.ui.controller("content.Overview", {
   
   onInit : function () 
   {
-    var oModel = new sap.ui.model.json.JSONModel("Data.json");
+    var oModel = new sap.ui.model.json.JSONModel("us.geojson");
       this.getView().setModel(oModel);
    },
 

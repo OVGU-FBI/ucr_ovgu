@@ -10,122 +10,76 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 		this.getView().byId("ComboBox2").setModel(oModel_sb);
 		//--------bubble chart vizframe---------
 		var oVizFrame3 = this.getView().byId("idoVizFrame3");
+		var oPopOverBubble = this.getView().byId("idPopOverBubble");
 
-		var oVizFrame3Model = new sap.ui.model.json.JSONModel({
-			'businessData': [{
-				"Sales_Month": "April",
-				"Marital Status": "Married",
-				"Customer Gender": "Female",
-				"Sales_Quarter": "Q1",
-				"Cost": 190,
-				"Unit Price": 128.3,
-				"Gross Profit": 321,
-				"Sales Revenue": 120
-		  }, {
-				"Sales_Month": "May",
-				"Marital Status": "Married",
-				"Customer Gender": "Female",
-				"Sales_Quarter": "Q2",
-				"Cost": 189.9,
-				"Unit Price": 151.17,
-				"Gross Profit": 181.59,
-				"Sales Revenue": 471.49
-		  }, {
-				"Sales_Month": "June",
-				"Marital Status": "Married",
-				"Customer Gender": "Female",
-				"Sales_Quarter": "Q3",
-				"Cost": 135,
-				"Unit Price": 321,
-				"Gross Profit": 124,
-				"Sales Revenue": 349
-		  }, {
-				"Sales_Month": "July",
-				"Marital Status": "Married",
-				"Customer Gender": "Female",
-				"Sales_Quarter": "Q4",
-				"Cost": 169.4,
-				"Unit Price": 185.2,
-				"Gross Profit": 153.8,
-				"Sales Revenue": 145.9
-		  }, {
-				"Sales_Month": "Augst",
-				"Marital Status": "Married",
-				"Customer Gender": "Male",
-				"Sales_Quarter": "Q1",
-				"Cost": 270.2,
-				"Unit Price": 175,
-				"Gross Profit": 154.3,
-				"Sales Revenue": 164.9
-		  }]
-		});
-
-		var oDataset = new sap.viz.ui5.data.FlattenedDataset({
+		var oDataset_bubble = new sap.viz.ui5.data.FlattenedDataset({
 			dimensions: [{
-				name: 'Sales_Quarter',
-				value: "{Sales_Quarter}"
-		    }, {
-				name: 'Customer Gender',
-				value: "{Customer Gender}"
-		    }, {
-				name: 'Sales_Month',
-				value: "{Sales_Month}"
-		    }, {
-				name: 'Marital Status',
-				value: "{Marital Status}"
-		    }],
-
-			measures: [{
-				name: 'Cost',
-				value: '{Cost}'
-		    }, {
-				name: 'Unit Price',
-				value: '{Unit Price}'
-		    }, {
-				name: 'Gross Profit',
-				value: '{Gross Profit}'
-		    }, {
-				name: 'Sales Revenue',
-				value: '{Sales Revenue}'
-		    }],
-
+					name: 'STATE NAME',
+					value: "{STATE_NAME}"
+		                    	  		 	},
+				{
+					name: 'YEAR',
+					value: "{YEAR}"
+		                    	  		 	}],
+			measures: [
+				{
+					name: 'Burglary',
+					value: '{BURG_RATE}'
+		                    	  		 		},
+				{
+					name: 'Larceny-theft',
+					value: '{LARCENY_THF_RATE}'
+		                    	  		 		},
+		                    	  		 		{
+					name: 'Motor vehicle theft',
+					value: '{MTR_VEH_THF_RATE}'
+		                    	  		 		},
+				{
+					name: 'Population',
+					value: '{POPULATION}'
+		                    	  		 		},
+				{
+					name: 'Property Crime Count',
+					value: '{PROPERTY_CRM_TTL_RATE}'
+		                    	  		 		}
+		                    	  		 	],
 			data: {
-				path: "/businessData"
+				path: "/PropertyCrimeDetails"
 			}
 		});
-		oVizFrame3.setDataset(oDataset);
-		oVizFrame3.setModel(oVizFrame3Model);
+		oVizFrame3.setDataset(oDataset_bubble);
+		oVizFrame3.setModel(oModel_sb);
 
 		//set feeds
 		var feedPrimaryValues = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				"uid": "primaryValues",
 				"type": "Measure",
-				"values": ["Cost"]
+				'values': ["Burglary"]
 			}),
 			feedSecondaryValues = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				"uid": "secondaryValues",
 				"type": "Measure",
-				"values": ["Unit Price"]
+				"values": ["Larceny-theft"]
 			}),
 			feedBubbleWidth = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				"uid": "bubbleWidth",
 				"type": "Measure",
-				"values": ["Gross Profit"]
+				"values": ["Property Crime Count"]
 			}),
 			feedBubbleHeight = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				"uid": "bubbleHeight",
 				"type": "Measure",
-				"values": ["Sales Revenue"]
+				"values": ["Population"]
 			}),
 			feedRegionColor = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				"uid": "regionColor",
 				"type": "Dimension",
-				"values": ["Sales_Month", "Sales_Quarter", "Customer Gender"]
+				'values': ["STATE NAME"]
 			}),
 			feedRegionShape = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				"uid": "regionShape",
 				"type": "Dimension",
-				"values": ["Marital Status"]
+				"values": ["YEAR"]
 			});
 
 		oVizFrame3.addFeed(feedPrimaryValues);
@@ -134,6 +88,8 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 		oVizFrame3.addFeed(feedBubbleHeight);
 		oVizFrame3.addFeed(feedRegionColor);
 		oVizFrame3.addFeed(feedRegionShape);
+		oPopOverBubble.connect(oVizFrame3.getVizUid());
+
 		oVizFrame3.setVizType('bubble');
 
 		//--------stacked bar chart vizframe---------
@@ -152,15 +108,15 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 			measures: [
 				{
 					name: 'Burglary',
-					value: '{BURG}'
+					value: '{BURG_RATE}'
 		                    	  		 		},
 				{
 					name: 'Larceny-theft',
-					value: '{LARCENY_THF}'
+					value: '{LARCENY_THF_RATE}'
 		                    	  		 		},
 		                    	  		 		{
 					name: 'Motor vehicle theft',
-					value: '{MTR_VEH_THF}'
+					value: '{MTR_VEH_THF_RATE}'
 		                    	  		 		}
 		                    	  		 	],
 			data: {
@@ -207,15 +163,15 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 			measures: [
 				{
 					name: 'Burglary',
-					value: '{BURG}'
+					value: '{BURG_RATE}'
 		                    	  		 		},
 				{
 					name: 'Larceny-theft',
-					value: '{LARCENY_THF}'
+					value: '{LARCENY_THF_RATE}'
 		                    	  		 		},
 		                    	  		 		{
 					name: 'Motor vehicle theft',
-					value: '{MTR_VEH_THF}'
+					value: '{MTR_VEH_THF_RATE}'
 		                    	  		 		}
 		                    	  		 	],
 			data: {
@@ -264,15 +220,15 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 			measures: [
 				{
 					name: 'Burglary',
-					value: '{BURG}'
+					value: '{BURG_RATE}'
 		                    	  		 		},
 				{
 					name: 'Larceny-theft',
-					value: '{LARCENY_THF}'
+					value: '{LARCENY_THF_RATE}'
 		                    	  		 		},
 		                    	  		 		{
 					name: 'Motor vehicle theft',
-					value: '{MTR_VEH_THF}'
+					value: '{MTR_VEH_THF_RATE}'
 		                    	  		 		}
 		                    	  		 	],
 			data: {
@@ -363,13 +319,13 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 					text: "{PROPERTY_CRM_TTL}"
 				}),
 		                    						new sap.m.Label({
-					text: "{BURG}"
+					text: "{BURG_RATE}"
 				}),
 		                    						new sap.m.Label({
-					text: "{LARCENY_THF}"
+					text: "{LARCENY_THF_RATE}"
 				}),
 		                    						new sap.m.Label({
-					text: "{MTR_VEH_THF}"
+					text: "{MTR_VEH_THF_RATE}"
 				}),
 		                    						new sap.m.Label({
 					text: "{STATE_NAME}"
@@ -411,6 +367,12 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 			[sorter],
 			[stateFilter, yearFilter]
 		);
+		this.getView().byId("idoVizFrame3").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[stateFilter, yearFilter]
+		);
 			this.getView().byId("idVizFrameLine").getDataset().bindData(
 			"/PropertyCrimeDetails",
 			null,
@@ -422,6 +384,12 @@ sap.ui.controller("content.PropertyCrimeDetails", {
 			    
 			}else{
     	this.getView().byId("idoVizFrame4").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[stateFilter]
+		);
+		this.getView().byId("idoVizFrame3").getDataset().bindData(
 			"/PropertyCrimeDetails",
 			null,
 			[sorter],
@@ -465,6 +433,12 @@ this.byId("idoTable").getBinding("items").filter([stateFilter]).sort(sorter);
 			[yearFilter]
 		);
 			this.getView().byId("idVizFrameLine").getDataset().bindData(
+			"/PropertyCrimeDetails",
+			null,
+			[sorter],
+			[yearFilter]
+		);
+			this.getView().byId("idoVizFrame3").getDataset().bindData(
 			"/PropertyCrimeDetails",
 			null,
 			[sorter],

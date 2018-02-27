@@ -54,7 +54,7 @@ sap.ui.controller("content.Main", { // controller logic goes here
 				// we return the respective view
 				content = sap.ui.view({
 					// location and name of the view
-					viewName: "content.scatter",
+					viewName: "content.Overview",
 					// type of the view, i.e. XML, JavaScript, JSON...
 					type: sap.ui.core.mvc.ViewType.XML
 				});

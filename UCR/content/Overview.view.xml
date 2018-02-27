@@ -1,51 +1,14 @@
-<mvc:View
-  controllerName="content.Overview"
-  xmlns:mvc="sap.ui.core.mvc"
-  xmlns:core="sap.ui.core"
-  xmlns="sap.m"
-  xmlns:vbm="sap.ui.vbm"
-   height="100%"
-   displayBlock="true">
-   <Page
-       showHeader = "false"
-       enableScrolling="false">
-    <vbm:AnalyticMap 
-        id="vbi"
-        width="100%"
-        height="100%"
-        regionClick="onRegionClick"
-      regionContextMenu="onRegionContextMenu"
-      regions ="{/regionProperties}">
-        <vbm:regions>
-        <vbm:Region           
-            code="{code}" 
-            color="{color}"
-            tooltip = "{tooltip}"/>
-      </vbm:regions>
-      <vbm:Circles 
-            items="{/Circles}"
-          click="onClickItem" 
-          contextMenu="onContextMenuItem" >
-        <vbm:Circle 
-            position="{A}" 
-            tooltip="{D}" 
-            radius="{E}"
-            color="{B}"
-            colorBorder="{C}"
-            click="onClickCircle" 
-            contextMenu="onContextMenuCircle"/>
-      </vbm:Circles>
-    </vbm:AnalyticMap>
-    <footer>
-      <Toolbar>
-            <ToolbarSpacer/>
-              <Button 
-                id="ZoomButton"
-            icon="sap-icon://zoom-in"
-            tooltip="Zoom in to EU"
-            enabled="true"
-            press="onZoomIn" />
-        </Toolbar>
-      </footer>
-   </Page>
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:gmaps="openui5.googlemaps"
+    controllerName="content.Overview">
+   <gmaps:Map lat="33.408495" lng="-104.521889" width="1300px" height="475px" zoom="4" zoomControl="true" apiKey="AIzaSyAKZ9KfkZU1BD00jVdhd5Ee_wgCR3GweU4">
+                <gmaps:markerCluster>
+                    <gmaps:MarkerCluster markers="{/features}">
+                        <gmaps:markers>
+                            <gmaps:Marker lat="{latitude}" lng="{longitude}"  info="{state},{state}" icon="openui5/googlemaps/themes/base/img/pinkball.png"></gmaps:Marker>
+                        </gmaps:markers>
+                    </gmaps:MarkerCluster>
+                </gmaps:markerCluster>
+            </gmaps:Map>
 </mvc:View>
