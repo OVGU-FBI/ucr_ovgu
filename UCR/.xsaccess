@@ -8,7 +8,7 @@
         "extension": "jpg",
         "mimetype": "image/jpeg"
     }],
-    "force_ssl": false,
+    "force_ssl": true,
     "enable_etags": true,
     "prevent_xsrf": true,
     "anonymous_connection": null,

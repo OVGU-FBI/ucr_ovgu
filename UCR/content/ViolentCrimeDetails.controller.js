@@ -1,16 +1,27 @@
 sap.ui.controller("content.ViolentCrimeDetails", {
 
 	onInit: function() {
-
 		var oModel_sb = new sap.ui.model.odata.ODataModel(
 			"models/violent.xsodata"
 		);
+		oModel_sb.attachMetadataFailed(function(oEvent) {
+				var oParams = oEvent.getParameters();
+				this.showServiceError(oParams.response);
+			}, this);
+		oModel_sb.attachRequestFailed(function(oEvent) {
+				var oParams = oEvent.getParameters("message");
+				// An entity that was not found in the service is also throwing a 404 error in oData.
+				// We already cover this case with a notFound target so we skip it here.
+				// A request that cannot be sent to the server is a technical error that we have to handle though
+				if (oParams.response.statusCode !== "404" || (oParams.response.statusCode === 404 && oParams.response.responseText.indexOf(
+					"Cannot POST") === 0)) {
+					this.showServiceError(oParams.response);
+				}
+		}, this);
 		this.getView().byId("ComboBox1").setModel(oModel_sb);
-		this.getView().byId("ComboBox2").setModel(oModel_sb);
 		//--------bubble chart vizframe---------
 		var oVizFrame3 = this.getView().byId("idoVizFrame3");
 		var oPopOverBubble = this.getView().byId("idPopOverBubble");
-
 		var oDataset_bubble = new sap.viz.ui5.data.FlattenedDataset({
 			dimensions: [{
 					name: 'STATE NAME',
@@ -50,9 +61,24 @@ sap.ui.controller("content.ViolentCrimeDetails", {
 				path: "/ViolentCrimeDetails"
 			}
 		});
+		oVizFrame3.setVizProperties({
+            plotArea: {
+                    gap: {
+                        visible: true
+                    }
+            },
+            legend: {
+                title: {
+                    visible: false
+                }
+            },
+            title: {
+                visible: true,
+                    text: 'Bubble Chart for Crime'
+            }
+    });
 		oVizFrame3.setDataset(oDataset_bubble);
 		oVizFrame3.setModel(oModel_sb);
-
 		//set feeds
 		var feedPrimaryValues = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				"uid": "primaryValues",
@@ -98,7 +124,6 @@ sap.ui.controller("content.ViolentCrimeDetails", {
 		//--------stacked bar chart vizframe---------
 		var oVizFrame5 = this.getView().byId("idoVizFrame5");
 		var oPopOverBar = this.getView().byId("idPopOverBar");
-
 		var oDataset_sb = new sap.viz.ui5.data.FlattenedDataset({
 			dimensions: [{
 					name: 'STATE_NAME',
@@ -130,7 +155,24 @@ sap.ui.controller("content.ViolentCrimeDetails", {
 				path: "/ViolentCrimeDetails"
 			}
 		});
+  oVizFrame5.setVizProperties({
+      plotArea: {
+        gap: {
+          visible: true
+        }
+      },
 
+      legend: {
+        title: {
+          visible: false
+        }
+      },
+
+      title: {
+        visible: true,
+        text: 'Stacked Bar Chart for Crime'
+      }
+    });
 		var feedPrimaryValues_sb = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				'uid': "primaryValues",
 				'type': "Measure",
@@ -189,7 +231,24 @@ sap.ui.controller("content.ViolentCrimeDetails", {
 				path: "/ViolentCrimeDetails"
 			}
 		});
+  oVizFrameLine.setVizProperties({
+      plotArea: {
+        gap: {
+          visible: true
+        }
+      },
 
+      legend: {
+        title: {
+          visible: false
+        }
+      },
+
+      title: {
+        visible: true,
+        text: 'Line Chart for crime'
+      }
+    });
 		var feedValueAxisLine = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				'uid': "valueAxis",
 				'type': "Measure",
@@ -249,7 +308,24 @@ sap.ui.controller("content.ViolentCrimeDetails", {
 				path: "/ViolentCrimeDetails"
 			}
 		});
+  oVizFrame4.setVizProperties({
+      plotArea: {
+        gap: {
+          visible: true
+        }
+      },
 
+      legend: {
+        title: {
+          visible: false
+        }
+      },
+
+      title: {
+        visible: true,
+        text: 'Column Chart for crime'
+      }
+    });
 		var feedValueAxis = new sap.viz.ui5.controls.common.feeds.FeedItem({
 				'uid': "valueAxis",
 				'type': "Measure",
@@ -346,7 +422,8 @@ sap.ui.controller("content.ViolentCrimeDetails", {
 				}),
 		           	                                new sap.m.Label({
 					text: "{MURDR_N0NNEGLT_MANSLTR}"
-				}), new sap.m.Label({
+				}), 
+				                                    new sap.m.Label({
 					text: "{VIOLENT_CRM_TTL_RATE}"
 				}),
 		                    						new sap.m.Label({
@@ -418,7 +495,20 @@ sap.ui.controller("content.ViolentCrimeDetails", {
 	},
 	onChangeYear: function(oEvent) {
 
-		var itemId = oEvent.getParameter("selectedItem").getKey();
+	//	var itemId = oEvent.getParameter("selectedItem").getKey();
+		
+var fromDate = oEvent.getSource().getDateValue();
+var toDate = oEvent.getSource().getSecondDateValue();
+// if there is no fromDate set, we'll set
+// it to the 01/01/1964
+if (!fromDate) {
+fromDate  = new Date(1964,1,1);
+}
+// if there is no toDate set, we'll set
+// it to the current date
+if (!toDate) {
+toDate = new Date(2014,1,1);
+}
 		var sorter = new sap.ui.model.Sorter(
 			"YEAR",
 			 true
@@ -426,8 +516,9 @@ sap.ui.controller("content.ViolentCrimeDetails", {
 		
 		var yearFilter = new sap.ui.model.Filter(
 			"YEAR",
-			sap.ui.model.FilterOperator.EQ,
-			itemId
+			sap.ui.model.FilterOperator.BT,
+			 fromDate.getFullYear(), 
+            toDate.getFullYear()
 		);
 		
 		this.getView().byId("idoVizFrame4").getDataset().bindData(
@@ -452,7 +543,6 @@ sap.ui.controller("content.ViolentCrimeDetails", {
 
 		this.byId("idoTable").getBinding("items").filter(yearFilter).sort(sorter);
 	},
-
 	onPress: function() {
 		this.getView().byId("idoVizFrame4").getDataset().bindData(
 			"/ViolentCrimeDetails");
@@ -465,8 +555,33 @@ sap.ui.controller("content.ViolentCrimeDetails", {
 
 		this.byId("idoTable").getBinding("items").filter("");
 		this.getView().byId("ComboBox1").setSelectedKey(null);
-		this.getView().byId("ComboBox2").setSelectedKey(null);
+		this.getView().byId("drs").setDateValue(null);
 		this.getView().byId("ComboBox1").setValue(null);
-		this.getView().byId("ComboBox2").setValue(null);
-	}
+	},
+		/**
+		 * Shows a {@link sap.m.MessageBox} when a service call has failed.
+		 * Only the first error message will be display.
+		 * @param {string} sDetails a technical error to be displayed on request
+		 * @private
+		 */
+		showServiceError: function(sDetails) {
+			var dialog = new sap.m.Dialog({
+				title: 'Error',
+				type: 'Message',
+				state: 'Error',
+				content: new sap.m.Text({
+					text: sDetails.statusText
+				}),
+				beginButton: new sap.m.Button({
+					text: 'OK',
+					press: function() {
+						dialog.close();
+					}
+				}),
+				afterClose: function() {
+					dialog.destroy();
+				}
+			});
+			dialog.open();
+		}
 });

@@ -89,9 +89,15 @@ sap.ui.controller("content.Main", { // controller logic goes here
 					type: sap.ui.core.mvc.ViewType.XML
 				});
 				break;
+					case "upload":
+				content = sap.ui.view({
+					// location and name of the view
+					viewName: "content.FileUpload",
+					// type of the view, i.e. XML, JavaScript, JSON...
+					type: sap.ui.core.mvc.ViewType.JS
+				});
+				break;
 			default:
-				// when we get an item that we do not know,
-				// we return nothing
 				content = null;
 				break;
 		}

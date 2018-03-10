@@ -19,14 +19,11 @@
 		title="Revenue">
 
 		<dimensionSelectors >
-		<m:ComboBox
-	            id="ComboBox2"
-		        selectionChange="onChangeYear"
-			    items="{
-				path: '/CrimeDetails'
-				}">
-			<core:Item key="{YEAR}" text="{YEAR}" />
-		</m:ComboBox>		
+		<m:DateRangeSelection
+      id="drs"
+      displayFormat="dd.MM.yyyy"
+      width="220px"
+      change="onChangeYear"/>		
     		<m:ComboBox
 	            id="ComboBox1"
 		    	selectionChange="onChangeState"
@@ -43,20 +40,21 @@
 		</dimensionSelectors>
 		 
 		<content>
-			<ChartContainerContent
-			   	icon = "sap-icon://bubble-chart" 
-				title = "Bubble Chart"> 
-				<content>
-				<viz:Popover id="idPopOverBubble"></viz:Popover>
-					<viz:VizFrame id="idoVizFrame3" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"> </viz:VizFrame>
-				</content>
-			</ChartContainerContent>		
+		
 			<ChartContainerContent
 			   	icon = "sap-icon://horizontal-stacked-chart" 
 				title = "Stacked Bar Chart"> 
 				<content>
 				<viz:Popover id="idPopOverBar"></viz:Popover>
 					<viz:VizFrame id="idoVizFrame5" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"> </viz:VizFrame>
+				</content>
+			</ChartContainerContent>
+						<ChartContainerContent
+			   	icon = "sap-icon://bubble-chart" 
+				title = "Bubble Chart"> 
+				<content>
+				<viz:Popover id="idPopOverBubble"></viz:Popover>
+					<viz:VizFrame id="idoVizFrame3" height="700px" width="100%" uiConfig="{applicationSet:'fiori'}"> </viz:VizFrame>
 				</content>
 			</ChartContainerContent>
 				<ChartContainerContent
